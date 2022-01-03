@@ -1,22 +1,26 @@
 package com.sirere.sistema_registro_renal.entity;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "examen")
 public class Examen {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_examen;
-    private Integer id_filicacion;
-    private double creatinina;
-    private double cloro;
-    private double albuminia;
-    private double potasio;
-    private double sodio;
-    private Date fecha_examen;
-    private boolean visto;
+    private Double creatinina;
+    private Double cloro;
+    private Double albuminia;
+    private Double potasio;
+    private Double sodio;
+    private LocalDate fecha_examen;
+    private Boolean visto;
+    @ManyToOne
+    @JoinColumn(name = "id_filiacion",  nullable = false)
+    private Filiacion filiacion;
 
     public Examen() {
     }
@@ -29,67 +33,90 @@ public class Examen {
         this.id_examen = id_examen;
     }
 
-    public Integer getId_filicacion() {
-        return id_filicacion;
+    public Boolean getVisto() {
+        return visto;
     }
 
-    public void setId_filicacion(Integer id_filicacion) {
-        this.id_filicacion = id_filicacion;
+    public void setVisto(Boolean visto) {
+        this.visto = visto;
     }
 
-    public double getCreatinina() {
+    public Filiacion getFiliacion() {
+        return filiacion;
+    }
+
+    public void setFiliacion(Filiacion filiacion) {
+        this.filiacion = filiacion;
+    }
+
+    public Double getCreatinina() {
         return creatinina;
     }
 
-    public void setCreatinina(double creatinina) {
+    public void setCreatinina(Double creatinina) {
         this.creatinina = creatinina;
     }
 
-    public double getCloro() {
+    public Double getCloro() {
         return cloro;
     }
 
-    public void setCloro(double cloro) {
+    public void setCloro(Double cloro) {
         this.cloro = cloro;
     }
 
-    public double getAlbuminia() {
+    public Double getAlbuminia() {
         return albuminia;
     }
 
-    public void setAlbuminia(double albuminia) {
+    public void setAlbuminia(Double albuminia) {
         this.albuminia = albuminia;
     }
 
-    public double getPotasio() {
+    public Double getPotasio() {
         return potasio;
     }
 
-    public void setPotasio(double potasio) {
+    public void setPotasio(Double potasio) {
         this.potasio = potasio;
     }
 
-    public double getSodio() {
+    public Double getSodio() {
         return sodio;
     }
 
-    public void setSodio(double sodio) {
+    public void setSodio(Double sodio) {
         this.sodio = sodio;
     }
 
-    public Date getFecha_examen() {
+    public LocalDate getFecha_examen() {
         return fecha_examen;
     }
 
-    public void setFecha_examen(Date fecha_examen) {
+    public void setFecha_examen(LocalDate fecha_examen) {
         this.fecha_examen = fecha_examen;
     }
 
-    public boolean isVisto() {
+    public Boolean isVisto() {
         return visto;
     }
 
     public void setVisto(boolean visto) {
         this.visto = visto;
+    }
+
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "id_examen=" + id_examen +
+                ", creatinina=" + creatinina +
+                ", cloro=" + cloro +
+                ", albuminia=" + albuminia +
+                ", potasio=" + potasio +
+                ", sodio=" + sodio +
+                ", fecha_examen=" + fecha_examen +
+                ", visto=" + visto +
+                ", filiacion=" + filiacion +
+                '}';
     }
 }

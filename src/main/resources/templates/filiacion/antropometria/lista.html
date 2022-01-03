@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2> Entre </h2>
+    <a th:href = "@{/antropometria/nuevo(id_filiacion = ${filiacion.id_filiacion})}"> nuevo </a>
+    <h1 th:text="'ID Filiacion = ' + ${filiacion.id_filiacion}"></h1>
+    <div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+    <table border ="1">
+        <thead>
+        <tr>
+            <th>Id Antropometria</th>
+            <th>Id Filiacion</th>
+            <th>Altura</th>
+            <th>Peso</th>
+            <th>IMC</th>
+            <th>Fecha Emitida</th>
+            <th>Acciones</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="antropometria : ${filiacion.antropometrias}">
+            <td th:text="${antropometria.id_antropometria}"></td>
+            <td th:text="${antropometria.filiacion.id_filiacion}"></td>
+            <td th:text="${antropometria.altura}"></td>
+            <td th:text="${antropometria.peso}"></td>
+            <td th:text="${antropometria.imc}"></td>
+            <td th:text="${antropometria.fecha_antropometria}"></td>
+
+
+            <td>
+                <a th:href = "@{/antropometria/detalle(id_antropometria = ${antropometria.id_antropometria})}" onclick="return confirm('ver')"> Ver  </a>
+                <a th:href = "@{/antropometria/actualizar(id_antropometria = ${antropometria.id_antropometria})}" onclick="return confirm('editar')"> Editar  </a>
+                <a th:href = "@{/antropometria/eliminar(id_antropometria = ${antropometria.id_antropometria})}" onclick="return confirm('eliminar')"> Eliminar  </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

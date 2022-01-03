@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href = "@{/signo/nuevo(id_filiacion = ${filiacion.id_filiacion})}"> nuevo </a>
+<h1 th:text="'ID Filiacion = ' + ${filiacion.id_filiacion}"></h1>
+<div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+<table border ="1">
+    <thead>
+    <tr>
+        <th>Id Signos Vitales</th>
+        <th>Id Filiacion</th>
+        <th>Visto</th>
+        <th>Fecha Emitida</th>
+        <th>Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="signo : ${filiacion.signos}">
+        <td th:text="${signo.id_signo}"></td>
+        <td th:text="${signo.filiacion.id_filiacion}"></td>
+        <td th:text="${signo.visto}"></td>
+        <td th:text="${signo.fecha_signo}"></td>
+
+        <td>
+            <a th:href = "@{/signo/detalle(id_signo = ${signo.id_signo})}" onclick="return confirm('ver')"> Ver  </a>
+            <a th:href = "@{/signo/actualizar(id_signo = ${signo.id_signo})}" onclick="return confirm('editar')"> Editar  </a>
+            <a th:href = "@{/signo/eliminar(id_signo = ${signo.id_signo})}" onclick="return confirm('eliminar')"> Eliminar  </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

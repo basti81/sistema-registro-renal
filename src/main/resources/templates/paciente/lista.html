@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Lista pacientes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Paciente</title>
 </head>
 <body>
+<a th:href="@{/paciente/nuevo}"> Nuevo </a>
 
+<div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+<table>
+    <thead>
+    <tr>
+        <th>Id Usuario</th>
+        <th>Rut</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.id_usuario}"></td>
+        <td th:text="${usuario.rut}"></td>
+        <td th:text="${usuario.nombre}"></td>
+        <td th:text="${usuario.apellido}"></td>
+        <td>
+            <a th:href = "@{/usuario/detalle/{id_usuario}(id_usuario = ${usuario.id_usuario})}" onclick="return confirm('ver')"> Ver  </a>
+            <a th:href = "@{/usuario/actualizar/{id_usuario}(id_usuario = ${usuario.id_usuario})}" onclick="return confirm('editar')"> Editar  </a>
+            <a th:href = "@{/usuario/eliminar/{id_usuario}(id_usuario = ${usuario.id_usuario})}" onclick="return confirm('eliminar')"> Eliminar  </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

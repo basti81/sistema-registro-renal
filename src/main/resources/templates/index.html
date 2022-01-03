@@ -1,23 +1,109 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:insert="fragments :: headerfiles">
-</head>
-<body>
-<header th:insert="fragments :: nav"></header>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 
-<div class="container">
-  <div class="jumbotron">
-    <h1 class="display-4" sec:authorize="!isAuthenticated()">Debes iniciar sesión</h1>
-    <h1 class="display-4" sec:authorize="isAuthenticated()">Hola <span sec:authentication="name"></span></h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </div>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sirere</title>
+
+    <div th:insert = "fragments :: links"></div>
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- SIDE BAR-->
+    <div th:insert="fragments-funcion :: sidebar"></div>
+    <!-- END SIDE BAR-->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- TOP BAR -->
+            <div th:insert="fragments-funcion :: topbar"></div>
+            <!-- END TOP BAR-->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Pagina de ejemplo</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                </div>
+
+
+                <!--  ROW CART-->
+                <!-- <div th:insert = "fragments-funcion :: row-cart"></div>-->
+                <!--END ROW CART-->
+
+
+
+                <div class= "card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">titulo al formulario</h6>
+                    </div>
+                    <div class= "card-body">
+                        <h1>relleno</h1>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- FOOTER -->
+        <footer th:insert="fragments :: footer"></footer>
+        <!-- End FOOTER -->
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="login.html">Salir</a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<footer th:insert="fragments :: footer"></footer>
-<div th:insert="fragments :: scripts"></div>
+<div th:insert = "fragments :: scripts"></div>
+
 </body>
+
 </html>

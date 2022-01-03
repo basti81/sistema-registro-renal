@@ -1,12 +1,17 @@
 package com.sirere.sistema_registro_renal.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
 @Entity
 @Table (name = "paciente")
-public class Paciente {
+public class Paciente{
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_paciente;
 
@@ -22,36 +27,40 @@ public class Paciente {
     @Column(name = "prevision", columnDefinition = "varchar(50)")
     private String prevision;
 
+//    @OneToOne(mappedBy = "paciente",cascade = CascadeType.ALL,orphanRemoval = true)
 //    private Filiacion filiacion;
 
-    @Column(name = "fecha_nac")
-    private Date fecha_nac;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
 
 
     public Paciente() {
     }
 
-    public Paciente(String region, String comuna, String direccion, String prevision, Date fecha_nac) {
+    public Paciente(String region, String comuna, String direccion, String prevision) {
         this.region = region;
         this.comuna = comuna;
         this.direccion = direccion;
         this.prevision = prevision;
-        this.fecha_nac = fecha_nac;
     }
-//    public Paciente(String rut, String nombre, String apellido, String username, String password, Set<Rol> roles, Date fecha_ingreso, String region, String comuna, String direccion, String prevision) {
-//      super(rut, nombre, apellido, username, password, roles, fecha_ingreso);
-//        this.region = region;
-//        this.comuna = comuna;
-//        this.direccion = direccion;
-//        this.prevision = prevision;
-//    }
 
+
+//    public Filiacion getFiliacion() {
+//        return filiacion;
+//    }
+//
+//    public void setFiliacion(Filiacion filiacion) {
+//        this.filiacion = filiacion;
+//    }
 
     public Long getId_paciente() {
         return id_paciente;
     }
 
-    public void setId_paciente(Long id_paciente) {
+    public void setId_paciente(long id_paciente) {
         this.id_paciente = id_paciente;
     }
 
@@ -87,11 +96,26 @@ public class Paciente {
         this.prevision = prevision;
     }
 
-    public Date getFecha_nac() {
-        return fecha_nac;
+    public void setId_paciente(Long id_paciente) {
+        this.id_paciente = id_paciente;
     }
 
-    public void setFecha_nac(Date fecha_nac) {
-        this.fecha_nac = fecha_nac;
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "region='" + region + '\'' +
+                ", comuna='" + comuna + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", prevision='" + prevision + '\'' +
+                '}';
     }
 }

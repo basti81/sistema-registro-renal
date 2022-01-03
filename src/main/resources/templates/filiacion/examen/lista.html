@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Examenes </title>
+</head>
+<body>
+    <h1> Mis Examenes </h1>
+    <br>
+    <a th:href = "@{/examen/nuevo(id_filiacion = ${filiacion.id_filiacion})}"> nuevo </a>
+    <div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+    <table border ="1">
+        <thead>
+        <tr>
+            <th>Id Examen</th>
+            <th>Id Filiacion</th>
+            <th>Tipo Examen </th>
+            <th>Fecha Emitida</th>
+            <th>Visto</th>
+            <th>Acciones</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="examen : ${filiacion.examenes}">
+            <td th:text="${examen.id_examen}"></td>
+            <td th:text="${examen.filiacion.id_filiacion}"></td>
+            <td> tipo </td>
+            <td th:text="${examen.fecha_examen}"></td>
+            <td th:text="${examen.visto}"></td>
+
+            <td>
+                <a th:href = "@{/examen/detalle(id_examen=${examen.id_examen})}" onclick="return confirm('ver')"> Ver  </a>
+                <a th:href = "@{/examen/actualizar(id_examen=${examen.id_examen})}" onclick="return confirm('editar')"> Editar  </a>
+                <a th:href = "@{/examen/eliminar(id_examen=${examen.id_examen})}" onclick="return confirm('eliminar')"> Eliminar  </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

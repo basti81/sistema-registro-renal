@@ -22,47 +22,47 @@ import java.util.Set;
 public class UsuarioController {
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
-    RolService rolService;
+    private RolService rolService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registro")
-    public String registro(){
+    public String registro() {
         return "registro";
     }
 
     @PostMapping("/registrar")
-    public ModelAndView registrar(String username, String password){
+    public ModelAndView registrar(String username, String password) {
         ModelAndView mv = new ModelAndView();
-        if(StringUtils.isBlank(username)){
+        if (StringUtils.isBlank(username)) {
             mv.setViewName("/registro");
             mv.addObject("error", "el nombre no puede estar vacío");
             return mv;
         }
-        if(StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(password)) {
             mv.setViewName("/registro");
             mv.addObject("error", "la contraseña no puede estar vacía");
             return mv;
         }
-        if(usuarioService.existsbyUsername(username)){
+        if (!usuarioService.existsbyUsername(username)) {
             mv.setViewName("/registro");
             mv.addObject("error", "ese nombre de usuario ya existe");
             return mv;
         }
-//        Usuario usuario = new Usuario();
-//        usuario.setUsername(username);
-//        usuario.setPassword(passwordEncoder.encode(password));
-//        Rol rolUser = rolService.getByRolNombre(RolNombre.CLIENTE).get();
-//        Set<Rol> roles = new HashSet<>();
-//        roles.add(rolUser);
-//        usuario.setRoles(roles);
-//        usuarioService.save(usuario);
-//        mv.setViewName("/login");
-//        mv.addObject("registroOK", "Cuenta creada, " + usuario.getUsername() + ", ya puedes iniciar sesión");
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+        usuario.setPassword(passwordEncoder.encode(password));
+        Rol rolUser = rolService.getByRolNombre(RolNombre.ADMINISTRADOR).get();
+        Set<Rol> roles = new HashSet<>();
+        roles.add(rolUser);
+        usuario.setRoles(roles);
+        usuarioService.save(usuario);
+        mv.setViewName("/login");
+        mv.addObject("registroOK", "Cuenta creada, " + usuario.getUsername() + ", ya puedes iniciar sesión");
         return mv;
     }
 }

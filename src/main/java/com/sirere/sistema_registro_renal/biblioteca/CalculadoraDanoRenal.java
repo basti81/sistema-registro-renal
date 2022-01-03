@@ -12,10 +12,10 @@ public class CalculadoraDanoRenal {
     private double mrdr4(int edad, double creatinina, String sexo, String raza){
         double res = 0;
         res = (186 * Math.pow(creatinina,(-1.154)) * Math.pow(edad, (-0.203)));
-        if(sexo.equals("F")){
+        if(sexo.equals("F")){  // SI ES MUJER
             res = res * (0.742);
         }
-        if(raza.equals("Afroamericana")){
+        if(raza.equals("Afroamericana")){ // SI ES AFROAMERICANA
             res = res * (1.21);
         }
         return res;

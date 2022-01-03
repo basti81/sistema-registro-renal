@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+<table border = "1">
+    <a th:href = "@{/filiacion/nuevo}"> nuevo </a>
+    <thead>
+    <tr>
+        <th>Id Filiacion</th>
+        <th>Sexo</th>
+        <th>Raza</th>
+        <th>Fecha Nacimiento</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="filiacion : ${filiaciones}">
+        <td th:text="${filiacion.id_filiacion}"></td>
+        <td>
+            <span th:if="${filiacion.sexo == 'M'}">Masculino</span>
+            <span th:unless="${filiacion.sexo == 'M'}">Femenino</span>
+        </td>
+        <td>
+            <span th:if="${filiacion.raza == 'ng'}">AfroAmericano</span>
+            <span th:unless="${filiacion.raza == 'ng'}">Caucasico</span>
+        </td>
+        <td th:text="${filiacion.fecha_nac}"></td>
+
+        <td>
+            <a th:href = "@{/filiacion/detalle(id_filiacion=${filiacion.id_filiacion})}" onclick="return confirm('ver')"> Ver  </a>
+            <a th:href = "@{/filiacion/actualizar(id_filiacion=${filiacion.id_filiacion})}" onclick="return confirm('editar')"> Editar  </a>
+            <a th:href = "@{/filiacion/eliminar(id_filiacion=${filiacion.id_filiacion})}" onclick="return confirm('eliminar')"> Eliminar  </a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

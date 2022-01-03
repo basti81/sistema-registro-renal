@@ -14,7 +14,7 @@ import java.util.Optional;
 public class RolService {
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     public void save (Rol rol){
         rolRepository.save(rol);

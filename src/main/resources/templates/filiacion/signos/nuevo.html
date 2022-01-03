@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text="'Id Filiacion = '+${signo.filiacion.id_filiacion}"></h2>
+<form th:action="@{/signo/create(id_filiacion=${signo.filiacion.id_filiacion})}" th:object="${signo}" method ="post">
+    <fieldset>
+        <legend>Datos del paciente</legend>
+        <table>
+            <input type="hidden" th:field="*{id_signo}">
+            <tr>
+                <td><label>Presion: </label></td>
+                <td><input type="text" th:field="*{p_alta}"  id="p_alta" name="p_alta"  required="required" /></td>
+                <td><input type="text" th:field="*{p_baja}"  id="p_baja" name="p_baja"  required="required" /></td>
+            </tr>
+            <tr>
+                <td><label>Pulso: </label></td>
+                <td><input type="text" th:field="*{pulso}"  id="pulso" name="pulso"  required="required" /></td>
+            </tr>
+            <tr>
+                <td><label>Respiracion: </label></td>
+                <td><input type="text" th:field="*{respiracion}"  id="respiracion" name="respiracion"  required="required" /></td>
+            </tr>
+            <tr>
+                <td><label>Temperatura: </label></td>
+                <td><input type="text" th:field="*{temperatura}"  id="temperatura" name="temperatura"  required="required" /></td>
+            </tr>
+            <tr>
+                <td><label>Saturacion: </label></td>
+                <td><input type="text" th:field="*{saturacion}"  id="saturacion" name="saturacion"  required="required" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Registrar...</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+
+
+</body>
+</html>>

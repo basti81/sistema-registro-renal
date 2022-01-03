@@ -12,7 +12,7 @@ public class HomeController {
 
     @GetMapping(value = {"/", "/index"})
     public String index(){
-        return "index";
+        return "login_prueba";
     }
 
     @GetMapping("/login")

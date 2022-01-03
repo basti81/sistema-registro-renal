@@ -3,6 +3,8 @@ package com.sirere.sistema_registro_renal.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -10,31 +12,33 @@ import java.util.Set;
 
 @Entity
 @Table(name ="usuario")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Usuario {
+public  class Usuario  {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_usuario;
     @NotNull
     @Column(unique = true)
     private String rut;
-    private String nombre;
-    private String apellido;
     @NotNull
+    private String nombre;
+    @NotNull
+    private String apellido;
     @Column(unique = true)
     private String username;
-    @NotNull
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name ="usuario_rol",joinColumns = @JoinColumn (name = "id_usuario"),inverseJoinColumns =  @JoinColumn(name="id_rol"))
     private Set<Rol> roles = new HashSet<>();
-//    private List<Consulta> consultas;
-    private Date fecha_ingreso;
+
+    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL)
+    private Paciente paciente;
+
+    private LocalDate fecha_ingreso;
 
 
     public Usuario() {
     }
 
-    public Usuario(String rut, String nombre, String apellido, String username, String password, Set<Rol> roles, Date fecha_ingreso) {
+    public Usuario(String rut, String nombre, String apellido, String username, String password, Set<Rol> roles, LocalDate fecha_ingreso) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -100,11 +104,34 @@ public class Usuario {
         this.roles = roles;
     }
 
-    public Date getFecha_ingreso() {
+    public LocalDate getFecha_ingreso() {
         return fecha_ingreso;
     }
 
-    public void setFecha_ingreso(Date fecha_ingreso) {
+    public void setFecha_ingreso(LocalDate fecha_ingreso) {
         this.fecha_ingreso = fecha_ingreso;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id_usuario=" + id_usuario +
+                ", rut='" + rut + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", paciente=" + paciente +
+                ", fecha_ingreso=" + fecha_ingreso +
+                '}';
     }
 }

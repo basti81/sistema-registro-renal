@@ -1,0 +1,45 @@
+package com.sirere.sistema_registro_renal.services;
+
+import com.sirere.sistema_registro_renal.biblioteca.Formato;
+import com.sirere.sistema_registro_renal.entity.Examen;
+import com.sirere.sistema_registro_renal.entity.SignoVital;
+import com.sirere.sistema_registro_renal.repository.ExamenRepository;
+import com.sirere.sistema_registro_renal.repository.SignosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class SignosService {
+
+    @Autowired
+    private SignosRepository signosRepository;
+    private Formato frt = new Formato();
+
+    public List<SignoVital> list() {
+        return signosRepository.findAll();
+    }
+
+    public List<SignoVital> mySignos(Long id_filiacion) {
+        return signosRepository.findByfiliacion(id_filiacion);
+    }
+
+    public Optional<SignoVital> getOne(Long id) {
+        return signosRepository.findById(id);
+    }
+
+    public void save(SignoVital signo) {
+        signo.setFecha_signo(frt.today());
+        signo.setVisto(false);
+        signosRepository.save(signo);
+    }
+
+    public void delete(Long id) {
+        signosRepository.deleteById(id);
+    }
+    public boolean existsById(Long id) {
+        return signosRepository.existsById(id);
+    }
+}
