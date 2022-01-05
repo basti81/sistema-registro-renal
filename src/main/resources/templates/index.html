@@ -13,7 +13,7 @@
 
     <title>Sirere</title>
 
-    <div th:insert = "fragments :: links"></div>
+    <div th:insert = "fragments/imports :: links"></div>
 
 </head>
 
@@ -26,7 +26,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -44,7 +44,7 @@
         <div id="content">
 
             <!-- TOP BAR -->
-            <div th:insert="fragments-funcion :: topbar"></div>
+            <div th:insert="fragments/functions :: topbar"></div>
             <!-- END TOP BAR-->
 
             <!-- Begin Page Content -->
@@ -80,7 +80,7 @@
         <!-- End of Main Content -->
 
         <!-- FOOTER -->
-        <footer th:insert="fragments :: footer"></footer>
+        <footer th:insert="fragments/imports :: footer"></footer>
         <!-- End FOOTER -->
     </div>
     <!-- End of Content Wrapper -->
@@ -93,27 +93,28 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="login.html">Salir</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:insert ="fragments/functions :: logout"></div>
+<!--<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>-->
+<!--                <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">×</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>-->
+<!--&lt;!&ndash;                <a class="btn btn-primary" th:href="@{/login}">Salir</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="btn btn-primary" href="login">Salir</a>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div th:insert = "fragments :: scripts"></div>
+<div th:insert = "fragments/imports :: scripts"></div>
 
 </body>
 

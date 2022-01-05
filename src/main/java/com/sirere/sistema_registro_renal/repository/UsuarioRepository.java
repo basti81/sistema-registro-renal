@@ -17,10 +17,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query(value = "SELECT * FROM usuario u", nativeQuery = true)
     public List<Usuario> findOnlyUsuario();
 
-    @Query(value = "SELECT * FROM usuario u WHERE u.username = ?1", nativeQuery = true)
+//    @Query(value = "SELECT * FROM usuario u WHERE u.username = ?1", nativeQuery = true)
     public Optional<Usuario> findByUsername(String username);
 
-    @Query(value = "SELECT COUNT(*) FROM usuario u WHERE u.username = ?1", nativeQuery = true)
-    public Optional<Usuario> existByUsername(String username);
+     boolean existsByUsername(String username);
 
 }

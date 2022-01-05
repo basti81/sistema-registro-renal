@@ -48,12 +48,15 @@
 //            mv.addObject("error", "la contraseña no puede estar vacía");
 //            return mv;
 //        }
-//        if (!usuarioService.existsbyUsername(username)) {
+//        if (usuarioService.existsbyUsername(username)) {
 //            mv.setViewName("/registro");
 //            mv.addObject("error", "ese nombre de usuario ya existe");
 //            return mv;
 //        }
 //        Usuario usuario = new Usuario();
+//        System.out.println("Entre a registro");
+//        System.out.println("user name = "+username);
+//        System.out.println("pass word = "+password);
 //        usuario.setUsername(username);
 //        usuario.setPassword(passwordEncoder.encode(password));
 //        Rol rolUser = rolService.getByRolNombre(RolNombre.ADMINISTRADOR).get();

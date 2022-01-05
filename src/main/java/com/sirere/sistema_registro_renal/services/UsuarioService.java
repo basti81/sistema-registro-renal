@@ -29,7 +29,11 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> findByUsername(String userName){
-        return usuarioRepository.findByUsername(userName);
+        Optional<Usuario> optional = usuarioRepository.findByUsername(userName);
+        if(optional.isPresent()){
+            System.out.println(optional.get().toString());
+        }
+        return optional;
     }
 
     public void save(Usuario usuario){
@@ -42,9 +46,7 @@ public class UsuarioService {
     }
 
     public boolean existsbyUsername(String userName){
-        Optional<Usuario> optional = usuarioRepository.existByUsername(userName);
-        if(optional.isPresent()) return true;
-        return false;
+        return usuarioRepository.existsByUsername(userName);
     }
 
 

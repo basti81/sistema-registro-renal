@@ -58,7 +58,7 @@ public class PacienteService {
 //    }
 
     public void save(Paciente paciente) {
-        paciente.getUsuario().setFecha_ingreso(frt.today());
+//        paciente.getUsuario().setFecha_ingreso(frt.today());
         pacienteRepository.save(paciente);
     }
 

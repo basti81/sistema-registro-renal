@@ -18,6 +18,8 @@ public class Examen {
     private Double sodio;
     private LocalDate fecha_examen;
     private Boolean visto;
+//    @OneToOne(mappedBy = "examen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private aDiagnosticoExamen aDiagnosticoExamen;
     @ManyToOne
     @JoinColumn(name = "id_filiacion",  nullable = false)
     private Filiacion filiacion;

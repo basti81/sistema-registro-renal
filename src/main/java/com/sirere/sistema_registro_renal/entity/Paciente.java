@@ -27,11 +27,10 @@ public class Paciente{
     @Column(name = "prevision", columnDefinition = "varchar(50)")
     private String prevision;
 
-//    @OneToOne(mappedBy = "paciente",cascade = CascadeType.ALL,orphanRemoval = true)
-//    private Filiacion filiacion;
+    @OneToOne(mappedBy = "paciente",cascade=CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    private Filiacion filiacion;
 
-    @OneToOne
-    @MapsId
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
@@ -96,9 +95,6 @@ public class Paciente{
         this.prevision = prevision;
     }
 
-    public void setId_paciente(Long id_paciente) {
-        this.id_paciente = id_paciente;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -108,6 +104,21 @@ public class Paciente{
         this.usuario = usuario;
     }
 
+
+    public Filiacion getFiliacion() {
+        return filiacion;
+    }
+
+    public void setFiliacion(Filiacion filiacion) {
+        if(filiacion == null){
+            if(this.filiacion != null){
+                this.filiacion.setPaciente(null);
+            }
+        }else{
+            filiacion.setPaciente(this);
+        }
+        this.filiacion = filiacion;
+    }
 
     @Override
     public String toString() {

@@ -65,7 +65,6 @@ public class PacienteController {
             return mv;
         }
         usuarioService.save(usuario);
-        pacienteService.save(usuario.getPaciente());
         mv.setViewName("redirect:/paciente/lista");
         return mv;
     }

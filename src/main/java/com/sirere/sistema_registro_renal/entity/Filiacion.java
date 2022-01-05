@@ -22,12 +22,13 @@ public class Filiacion {
     @Column(name = "raza", columnDefinition = "varchar(10)")
     private String raza;
 
+    @Transient
     private Integer edad;
     @Column(name = "fecha_nac")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_nac;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
@@ -127,6 +128,14 @@ public class Filiacion {
 
     public void setFecha_nac(LocalDate fecha_nac) {
         this.fecha_nac = fecha_nac;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

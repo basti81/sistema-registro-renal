@@ -24,5 +24,5 @@ public class HomeController {
     public String forbidden(){
         return "forbidden";
     }
-
 }
+

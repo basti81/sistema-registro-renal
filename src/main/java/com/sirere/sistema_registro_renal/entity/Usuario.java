@@ -29,7 +29,7 @@ public  class Usuario  {
     @JoinTable(name ="usuario_rol",joinColumns = @JoinColumn (name = "id_usuario"),inverseJoinColumns =  @JoinColumn(name="id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
     private Paciente paciente;
 
     private LocalDate fecha_ingreso;
@@ -117,8 +117,17 @@ public  class Usuario  {
     }
 
     public void setPaciente(Paciente paciente) {
+        if(paciente == null){
+            if(this.paciente !=null){
+                this.paciente.setUsuario(null);
+            }
+        }else{
+            paciente.setUsuario(this);
+        }
         this.paciente = paciente;
     }
+
+
 
     @Override
     public String toString() {
@@ -130,7 +139,7 @@ public  class Usuario  {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
-                ", paciente=" + paciente +
+//                ", paciente=" + paciente +
                 ", fecha_ingreso=" + fecha_ingreso +
                 '}';
     }

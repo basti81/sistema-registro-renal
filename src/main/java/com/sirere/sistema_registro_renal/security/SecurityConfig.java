@@ -42,7 +42,7 @@
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
-//                .antMatchers("/", "/index", "/fragments", "/forbidden", "/login", "/usuario/registro")
+//                .antMatchers("/", "/index", "/fragments", "/login", "/usuario/registro")
 //                .permitAll()
 //                .antMatchers("/usuario/registrar")
 //                .permitAll()

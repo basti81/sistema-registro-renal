@@ -1,22 +1,21 @@
 package com.sirere.sistema_registro_renal.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
 public class Contacto {
     private Integer id_contacto;
-    private Integer id_usuario;
     private String telefono;
     private String telefono_aux;
     private String correo;
 
+
+    private Usuario usuario;
+
     public Contacto() {
     }
 
-    public Contacto(Integer id_contacto, Integer id_usuario, String telefono, String telefono_aux, String correo) {
-        this.id_contacto = id_contacto;
-        this.id_usuario = id_usuario;
-        this.telefono = telefono;
-        this.telefono_aux = telefono_aux;
-        this.correo = correo;
-    }
 
     public Integer getId_contacto() {
         return id_contacto;
@@ -26,13 +25,6 @@ public class Contacto {
         this.id_contacto = id_contacto;
     }
 
-    public Integer getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
 
     public String getTelefono() {
         return telefono;
