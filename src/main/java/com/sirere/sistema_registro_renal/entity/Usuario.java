@@ -23,14 +23,20 @@ public  class Usuario  {
     @NotNull
     private String apellido;
     @Column(unique = true)
-    private String username;
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name ="usuario_rol",joinColumns = @JoinColumn (name = "id_usuario"),inverseJoinColumns =  @JoinColumn(name="id_rol"))
+    @JoinTable(name ="usu_rol",joinColumns = @JoinColumn (name = "id_usuario"),inverseJoinColumns =  @JoinColumn(name="id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL,fetch = FetchType.LAZY,optional = false)
     private Paciente paciente;
+
+    @OneToOne(mappedBy = "usuario",cascade=CascadeType.ALL,fetch = FetchType.LAZY,optional = false)
+    private Personal personal;
+
+    @OneToOne(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Contacto contacto;
 
     private LocalDate fecha_ingreso;
 
@@ -38,11 +44,10 @@ public  class Usuario  {
     public Usuario() {
     }
 
-    public Usuario(String rut, String nombre, String apellido, String username, String password, Set<Rol> roles, LocalDate fecha_ingreso) {
+    public Usuario(String rut, String nombre, String apellido, String password, Set<Rol> roles, LocalDate fecha_ingreso) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.username = username;
         this.password = password;
         this.roles = roles;
         this.fecha_ingreso = fecha_ingreso;
@@ -78,14 +83,6 @@ public  class Usuario  {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -127,7 +124,35 @@ public  class Usuario  {
         this.paciente = paciente;
     }
 
+    public Personal getPersonal() {
+        return personal;
+    }
 
+    public void setPersonal(Personal personal) {
+        if(personal == null){
+            if(this.personal !=null){
+                this.personal.setUsuario(null);
+            }
+        }else{
+            personal.setUsuario(this);
+        }
+        this.personal = personal;
+    }
+
+    public Contacto getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(Contacto contacto) {
+        if(contacto == null){
+            if(this.contacto !=null){
+                this.contacto.setUsuario(null);
+            }
+        }else{
+            contacto.setUsuario(this);
+        }
+        this.contacto = contacto;
+    }
 
     @Override
     public String toString() {
@@ -136,10 +161,8 @@ public  class Usuario  {
                 ", rut='" + rut + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
-//                ", paciente=" + paciente +
+                ", contacto=" + contacto +
                 ", fecha_ingreso=" + fecha_ingreso +
                 '}';
     }

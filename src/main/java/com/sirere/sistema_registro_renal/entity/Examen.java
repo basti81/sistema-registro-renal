@@ -1,25 +1,30 @@
 package com.sirere.sistema_registro_renal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "examen")
-public class Examen {
+public class    Examen {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_examen;
     private Double creatinina;
     private Double cloro;
-    private Double albuminia;
+    private Double albumina;
     private Double potasio;
     private Double sodio;
-    private LocalDate fecha_examen;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime fecha_examen;
     private Boolean visto;
-//    @OneToOne(mappedBy = "examen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//    private aDiagnosticoExamen aDiagnosticoExamen;
+
+    @OneToOne(mappedBy = "examen",cascade=CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    private AutoDiagnostico autoDiagnostico;
+
     @ManyToOne
     @JoinColumn(name = "id_filiacion",  nullable = false)
     private Filiacion filiacion;
@@ -67,12 +72,12 @@ public class Examen {
         this.cloro = cloro;
     }
 
-    public Double getAlbuminia() {
-        return albuminia;
+    public Double getAlbumina() {
+        return albumina;
     }
 
-    public void setAlbuminia(Double albuminia) {
-        this.albuminia = albuminia;
+    public void setAlbumina(Double albumina) {
+        this.albumina = albumina;
     }
 
     public Double getPotasio() {
@@ -91,11 +96,11 @@ public class Examen {
         this.sodio = sodio;
     }
 
-    public LocalDate getFecha_examen() {
+    public LocalDateTime getFecha_examen() {
         return fecha_examen;
     }
 
-    public void setFecha_examen(LocalDate fecha_examen) {
+    public void setFecha_examen(LocalDateTime fecha_examen) {
         this.fecha_examen = fecha_examen;
     }
 
@@ -107,18 +112,32 @@ public class Examen {
         this.visto = visto;
     }
 
+    public AutoDiagnostico getAutoDiagnostico() {
+        return autoDiagnostico;
+    }
+
+    public void setAutoDiagnostico(AutoDiagnostico autoDiagnostico) {
+        if(autoDiagnostico == null){
+            if(this.autoDiagnostico !=null){
+                this.autoDiagnostico.setExamen(null);
+            }
+        }else{
+            autoDiagnostico.setExamen(this);
+        }
+        this.autoDiagnostico = autoDiagnostico;
+    }
+
     @Override
     public String toString() {
         return "Examen{" +
                 "id_examen=" + id_examen +
                 ", creatinina=" + creatinina +
                 ", cloro=" + cloro +
-                ", albuminia=" + albuminia +
+                ", albumina=" + albumina +
                 ", potasio=" + potasio +
                 ", sodio=" + sodio +
                 ", fecha_examen=" + fecha_examen +
                 ", visto=" + visto +
-                ", filiacion=" + filiacion +
                 '}';
     }
 }

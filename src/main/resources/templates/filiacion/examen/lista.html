@@ -1,44 +1,168 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Examenes </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Filiacion detalle</title>
+
+    <div th:insert = "fragments/imports :: links"></div>
+
 </head>
-<body>
-    <h1> Mis Examenes </h1>
-    <br>
-    <a th:href = "@{/examen/nuevo(id_filiacion = ${filiacion.id_filiacion})}"> nuevo </a>
-    <div th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
-    <table border ="1">
-        <thead>
-        <tr>
-            <th>Id Examen</th>
-            <th>Id Filiacion</th>
-            <th>Tipo Examen </th>
-            <th>Fecha Emitida</th>
-            <th>Visto</th>
-            <th>Acciones</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="examen : ${filiacion.examenes}">
-            <td th:text="${examen.id_examen}"></td>
-            <td th:text="${examen.filiacion.id_filiacion}"></td>
-            <td> tipo </td>
-            <td th:text="${examen.fecha_examen}"></td>
-            <td th:text="${examen.visto}"></td>
+<body id="page-top">
 
-            <td>
-                <a th:href = "@{/examen/detalle(id_examen=${examen.id_examen})}" onclick="return confirm('ver')"> Ver  </a>
-                <a th:href = "@{/examen/actualizar(id_examen=${examen.id_examen})}" onclick="return confirm('editar')"> Editar  </a>
-                <a th:href = "@{/examen/eliminar(id_examen=${examen.id_examen})}" onclick="return confirm('eliminar')"> Eliminar  </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!--SIDE BAR VISTA PACIENTE-->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div th:insert="fragments/sidebar-filiacion :: sidebar-paciente"></div>
+    </ul>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- TOP BAR -->
+            <div th:insert="fragments/topbar :: topbar"></div>
+            <!-- END TOP BAR-->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h5 mb-2 text-gray-800">Mis Examenes</h1>
+                </div>
+
+
+                <!--  ROW CART-->
+                <!-- <div th:insert = "fragments-funcion :: row-cart"></div>-->
+                <!--END ROW CART-->
+
+
+                <!--  DATOS DEL PACIENTE -->
+                <div class= "card shadow mb-4">
+                    <div class= "card-body">
+                        <table class ="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Rut</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha Nac.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row" th:text="${usuario.id_usuario}"></th>
+                                <td th:text="${usuario.rut}"></td>
+                                <td th:text="${usuario.nombre}+' '+${usuario.apellido}"></td>
+                                <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class='alert alert-success' th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+                <!--CONTENEDOR DEL PAGINADO-->
+                <div class= "card shadow mb-4">
+                    <div class="card-header py-3">
+                        <!--BARRA DE NAVEGACION DENTRO DEL CARD-->
+                        <div th:insert="fragments/navbar-filiacion :: navbar-paciente"></div>
+                    </div>
+
+                    <div class= "card-body">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-primary btn-sm " th:href="@{/examen/nuevo(id_filiacion = ${usuario.paciente.filiacion.id_filiacion})}"> Nuevo </a>
+                                <div class="input-group col-md-6">
+                                    <input onclick="today()"  id="from_examen_list" type="date" class="form-control  border-1 small">
+                                    <input onclick="today()"  id="to_examen_list" type="date" class="form-control border-1 small">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--VISUALIZACION DE TABLA-->
+                        <table class="table table-sm" id="dataTable" width="100%" cellspacing="0" >
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo Examen </th>
+                                <th>Fecha Emitida</th>
+                                <th>Visto</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="examen : ${usuario.paciente.filiacion.examenes}">
+                                <td th:text="${examen.id_examen}"></td>
+                                <td> tipo </td>
+                                <td th:text="${examen.fecha_examen}"></td>
+                                <td>
+                                    <span th:if="${examen.visto == true}">
+                                         <div class="btn btn-success btn-sm"> Si</div>
+                                    </span>
+                                    <span th:unless="${examen.visto == true}">
+                                        <div class="btn btn-danger btn-sm">No</div>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a th:href = "@{/examen/detalle(id_examen=${examen.id_examen})}" class="btn btn-success btn-sm" title="Ver">
+                                        <i class="fas fa-eye" aria-hidden="true"></i></a>
+                                    <a th:href = "@{/examen/actualizar(id_examen=${examen.id_examen})}" class="btn btn-success btn-sm" title="Actualizar">
+                                        <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
+                                    <a th:href = "@{/examen/eliminar(id_examen=${examen.id_examen})}" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Está seguro de eliminar?')">
+                                        <i class="fas fa-trash" aria-hidden="true"></i> </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- FOOTER -->
+        <footer th:insert="fragments/imports :: footer"></footer>
+        <!-- End FOOTER -->
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<div th:insert = "fragments/topbar :: logout"></div>
+
+<div th:insert = "fragments/imports :: scripts"></div>
+
 </body>
+
 </html>

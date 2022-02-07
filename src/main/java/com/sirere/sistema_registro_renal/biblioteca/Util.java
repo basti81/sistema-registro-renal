@@ -1,7 +1,6 @@
 package com.sirere.sistema_registro_renal.biblioteca;
 
-public class GeneracionClave {
-
+public class Util {
     public  String getRandomString() {
         String theAlphaNumericS;
         StringBuilder builder;

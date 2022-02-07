@@ -21,52 +21,9 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
+        <!--SIDE BAR VISTA PACIENTE-->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SIRERE</div>
-            </a>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <a href="javascript: history.go(-1)">Volver</a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/examen/lista(id_filiacion=${filiacion.id_filiacion})}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mis Examenes</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/antropometria/lista(id_filiacion= ${filiacion.id_filiacion})}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mis Medidas</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/signo/lista(id_filiacion= ${filiacion.id_filiacion})}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mis Signos</span></a>
-            </li>
-
+            <div th:insert="fragments/sidebar-filiacion :: sidebar-paciente"></div>
         </ul>
 
         <!-- Content Wrapper -->
@@ -76,7 +33,7 @@
             <div id="content">
 
                 <!-- TOP BAR -->
-                <div th:insert="fragments/functions :: topbar"></div>
+                <div th:insert="fragments/topbar :: topbar"></div>
                 <!-- END TOP BAR-->
 
                 <!-- Begin Page Content -->
@@ -84,9 +41,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Filiacion</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h5 mb-0 text-gray-800">Mis Datos</h1>
                     </div>
 
 
@@ -101,41 +56,113 @@
                             <h6 class="m-0 font-weight-bold text-primary">Datos Paciente</h6>
                         </div>
                         <div class= "card-body">
-                            <h1> mis datos</h1>
+                            <table class ="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Rut</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Fecha Nac.</th>
+                                    <th scope="col">Fecha Ingreso.</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row" th:text="${usuario.id_usuario}"></th>
+                                    <td th:text="${usuario.rut}"></td>
+                                    <td th:text="${usuario.nombre}+' '+${usuario.apellido}"></td>
+                                    <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
+                                    <td th:text="${usuario.fecha_ingreso}"></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
 
-
-                    <!--DIRECCIONES-->
-                    <div class= "card shadow mb-4">
+                        <!--DIRECCIONES-->
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Direcciones</h6>
                         </div>
                         <div class= "card-body">
-                           <h1> mis direcciones</h1>
+                            <table class ="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Region</th>
+                                    <th scope="col">Comuna</th>
+                                    <th scope="col">Direccion</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td th:text="${usuario.paciente.region}"></td>
+                                    <td th:text="${usuario.paciente.comuna}"></td>
+                                    <td th:text="${usuario.paciente.direccion}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
 
-
-                    <!--CONTACTOS-->
-                    <div class= "card shadow mb-4">
+                        <!--CONTACTO-->
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Contacto</h6>
                         </div>
                         <div class= "card-body">
-                         <h1> mis contactos</h1>
-                        </div>
-                    </div>
+                            <table class ="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Celular</th>
+                                    <th scope="col">Cel Resplado</th>
 
-                    <!--DATOS FILIACION-->
-                    <div class= "card shadow mb-4">
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td th:text="${usuario.contacto.correo}"></td>
+                                    <td th:text="${usuario.contacto.telefono}"></td>
+                                    <td th:text="${usuario.contacto.telefono_aux}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--FILIACION-->
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Datos Personales</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Filiacion</h6>
                         </div>
                         <div class= "card-body">
-                            <h2 th:text="'Id filiacion = ' + ${filiacion.id_filiacion}"> </h2>
-                            <h2 th:text ="'Sexo = ' + ${filiacion.sexo}"></h2>
-                            <h2 th:text ="'Raza = ' + ${filiacion.raza}"></h2>
+                            <table class ="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Fecha Nac.</th>
+                                    <th scope="col">Sexo</th>
+                                    <th scope="col">Raza</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
+                                    <td>
+                                        <span th:if="${usuario.paciente.filiacion.sexo == 'M'}">Masculino</span>
+                                        <span th:unless="${usuario.paciente.filiacion.sexo == 'M'}">Femenino</span>
+                                    </td>
+                                    <td>
+                                        <span th:if="${usuario.paciente.filiacion.raza == 'bl'}">Caucasica</span>
+                                        <span th:unless="${usuario.paciente.filiacion.raza == 'bl'}">AfroAmericana</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
 
@@ -159,26 +186,9 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!--<div th:insert = "fragments/functions :: logout"></div>-->
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="login.html">Salir</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:insert = "fragments/topbar :: logout"></div>
+
+
 
 <div th:insert = "fragments/imports :: scripts"></div>
 

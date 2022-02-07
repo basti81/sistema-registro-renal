@@ -1,6 +1,6 @@
 package com.sirere.sistema_registro_renal.entity;
 
-import com.sirere.sistema_registro_renal.enums.RolNombre;
+import com.sirere.sistema_registro_renal.enums.RolEnum;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -13,13 +13,13 @@ public class Rol {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private RolNombre rolNombre;
+    private RolEnum rolEnum;
 
     public Rol() {
     }
 
-    public Rol(RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
+    public Rol(RolEnum rolEnum) {
+        this.rolEnum = rolEnum;
     }
 
 
@@ -31,13 +31,16 @@ public class Rol {
         this.id = id;
     }
 
-    public RolNombre getRolNombre() {
-        return rolNombre;
+    public RolEnum getRolNombre() {
+        return rolEnum;
     }
 
-    public void setRolNombre(RolNombre rolNombre) {
-        this.rolNombre = rolNombre;
+    public void setRolNombre(RolEnum rolEnum) {
+        this.rolEnum = rolEnum;
     }
 
-
+    @Override
+    public String toString() {
+        return getRolNombre().toString();
+    }
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <div th:insert="frangments/imports :: links"></div>
+</head>
+<body>
+
+<div ></div>
+
+
+<!--ADMINISTRADOR-->
+<div th:fragment = "administrador">
+</div>
+
+
+
+<!--CLIENTE-->
+<div th:fragment = "cliente">
+</div>
+
+
+
+<!--DOCTOR-->
+<div th:fragment = "doctor">
+</div>
+
+
+
+<!--ENFERMERIA-->
+<div th:fragment = "enfermeria">
+</div>
+
+
+
+<!--GES-->
+<div th:fragment = "ges">
+</div>
+
+
+<!--LABORATORISTA-->
+<div th:fragment = "laboratorista">
+</div>
+
+
+<!--ESTADISTICAS-->
+<div th:fragment = "estadistica">
+</div>
+
+<!--TENS-->
+<div th:fragment = "tens">
+  <div class="card-header py-3">
+    <!--                        <h6 class="m-0 font-weight-bold text-primary">Pacientes</h6>-->
+<!--    <a class="btn btn-primary" th:href="@{/paciente/nuevo}"> Nuevo </a>-->
+  </div>
+  <div class= "card-body">
+
+    <div class='alert alert-success' th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Rut</th>
+        <th>Nombre</th>
+        <th>Fec. Atencion</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.id_usuario}"></td>
+        <td th:text="${usuario.rut}"></td>
+        <td th:text="${usuario.nombre} +' '+${usuario.apellido}"></td>
+        <td> fecha </td>
+
+        <td>
+          <!--INGRESO SIGNOS VITALES A PACIENTE-->
+          <a th:href = "@{/signos/lista(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm" title="Ingreso Signos">
+            <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div th:insert="fragments/imports :: scripts"></div>
+</body>
+</html>

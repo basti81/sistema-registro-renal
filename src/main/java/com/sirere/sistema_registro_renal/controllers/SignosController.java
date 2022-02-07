@@ -3,8 +3,10 @@ package com.sirere.sistema_registro_renal.controllers;
 import com.sirere.sistema_registro_renal.entity.Examen;
 import com.sirere.sistema_registro_renal.entity.Filiacion;
 import com.sirere.sistema_registro_renal.entity.SignoVital;
+import com.sirere.sistema_registro_renal.entity.Usuario;
 import com.sirere.sistema_registro_renal.services.ExamenService;
 import com.sirere.sistema_registro_renal.services.SignosService;
+import com.sirere.sistema_registro_renal.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,8 @@ public class SignosController {
 
     @Autowired
     private SignosService signosService;
+    @Autowired
+    private UsuarioService usuarioService;
 
 
     @PostMapping("/save")
@@ -31,17 +35,13 @@ public class SignosController {
         signosService.save(signoVital);
     }
 
-    //    @GetMapping("/lista/{id_filiacion}")
     @GetMapping("/lista")
-//    public ModelAndView list(Filiacion filiacion, @PathVariable("id_filiacion") long id_filiacion) {
-    public ModelAndView list(Filiacion filiacion, @RequestParam("id_filiacion") long id_filiacion) {
+    public ModelAndView list(@RequestParam("id_filiacion") long id_filiacion) {
         ModelAndView mv = new ModelAndView();
-        filiacion.setSignos(signosService.mySignos(id_filiacion));
-        mv.addObject("filiacion", filiacion);
+        Optional<Usuario> optional = usuarioService.findUsuarioByFiliacion(id_filiacion);
+        optional.get().getPaciente().getFiliacion().setSignos(signosService.mySignos(id_filiacion));
+        mv.addObject("usuario", optional.get());
         mv.setViewName("/filiacion/signos/lista");
-//        for(Examen examen : filiacion.getExamenes()){
-//            System.out.println("Examen = " + examen.toString());
-//        }
         return mv;
     }
 

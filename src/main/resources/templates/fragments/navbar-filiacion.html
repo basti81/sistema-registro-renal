@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <div th:insert="frangments/imports :: links"></div>
+</head>
+<body>
+
+
+<div th:fragment = "navbar-paciente">
+  <!--BARRA DE NAVEGACION DENTRO DEL CARD-->
+  <nav class="nav">
+    <div class = "container-fluid">
+      <ul class="nav">
+        <!--BOTON EXAMEN-->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/examen/lista(id_filiacion= ${usuario.paciente.filiacion.id_filiacion})}"> <button type="button" class="btn btn-light btn-sm"><i class="fas fa-vials"></i>
+            <span>Examenes</span></button></a>
+        </li>
+
+        <!--BOTON SIGNOS-->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/signo/lista(id_filiacion= ${usuario.paciente.filiacion.id_filiacion})}"> <button type="button" class="btn btn-light btn-sm"><i class="fas fa-heartbeat"></i>
+            <span>Signos</span></button></a>
+        </li>
+
+        <!--BOTON ANTROPOMETRIA-->
+        <li class="nav-item">
+          <a class="nav-link" href="#"> <button type="button" class="btn btn-light btn-sm"><i class="fas fa-ruler"></i>
+            <span>Medidas</span></button></a>
+        </li>
+
+        <!--BOTON ANTECEDENTES-->
+        <li class="nav-item">
+          <a class="nav-link" href="#"> <button type="button" class="btn btn-light btn-sm"><i class="fas fa-copy"></i>
+            <span>Antecedentes</span></button></a>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+</div>
+
+
+<div th:insert="fragments/imports :: scripts"></div>
+</body>
+</html>

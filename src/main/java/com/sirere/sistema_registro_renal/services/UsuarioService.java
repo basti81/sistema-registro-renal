@@ -17,38 +17,65 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
     Formato frt = new Formato();
 
-    public List<Usuario> lista(){
+    public List<Usuario> lista() {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> getById(Long id_usuario){
-        return usuarioRepository.findById(id_usuario);
-    }
 
-    public Optional<Usuario> findByUsername(String userName){
-        Optional<Usuario> optional = usuarioRepository.findByUsername(userName);
-        if(optional.isPresent()){
-            System.out.println(optional.get().toString());
+
+    //OBTENER USUARIO MEDIANTE LA ID DE FILIACION
+    public Optional<Usuario> findUsuarioByFiliacion(Long id_filiacion) {
+        Optional<Usuario> optional = usuarioRepository.findUsuarioByFiliacion(id_filiacion);
+        if (optional.isPresent()) {
+            return optional;
         }
-        return optional;
+        return null;
     }
 
-    public void save(Usuario usuario){
+    //OBTENER PACIENTE MEDIANTE ID USUARIO
+    public Optional<Usuario> findPacienteById_usuario(long id_usuario) {
+        Optional<Usuario> optional = usuarioRepository.findPacienteById_usuario(id_usuario);
+        if (optional.isPresent()) {
+            return optional;
+        }
+        return null;
+    }
+
+
+    public Optional<Usuario> getOne(Long id_usuario) {
+        Optional<Usuario> optional = usuarioRepository.findById(id_usuario);
+        if (optional.isPresent()) {
+            return optional;
+        }
+        return null;
+    }
+
+    public Optional<Usuario> findUsuarioByRut(String rut) {
+        Optional<Usuario> optional = usuarioRepository.findUsuarioByRut(rut);
+        if (optional.isPresent()) {
+            System.out.println(optional.get().toString());
+            return optional;
+        }
+        return null;
+    }
+
+    public void save(Usuario usuario) {
         usuario.setFecha_ingreso(frt.today());
         usuarioRepository.save(usuario);
     }
 
-    public boolean existsById(Long id_usuario){
+    public boolean existsById(Long id_usuario) {
         return usuarioRepository.existsById(id_usuario);
     }
 
-    public boolean existsbyUsername(String userName){
-        return usuarioRepository.existsByUsername(userName);
+
+
+    public boolean existsByRut(String rut){return usuarioRepository.existsByRut(rut);}
+    public void delete(Long id_usuario) {
+        usuarioRepository.deleteById(id_usuario);
     }
-
-
 
 }

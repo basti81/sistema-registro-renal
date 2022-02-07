@@ -1,60 +1,184 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Paciente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ingreso Paciente</title>
+
+    <div th:insert = "fragments/imports :: links"></div>
+
 </head>
-<body>
-<h2> entre</h2>
-<h2 th:text = "'id filiacion = ' + ${examen.filiacion.id_filiacion}"></h2>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- SIDE BAR-->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SIRERE</div>
+        </a>
 
 
-    <form th:action="@{/examen/create(id_filiacion = ${examen.filiacion.id_filiacion})}" th:object="${examen}" method="post">
+    </ul>
+    <!-- END SIDE BAR-->
 
-        <!-- ALERTA DE ERRORES-->
-        <div th:if="${#fields.hasErrors('*')}">
-            <h2> Por favor corrija los siguientes errores:</h2>
-            <ul>
-                <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- TOP BAR -->
+            <div th:insert="fragments/functions :: topbar"></div>
+            <!-- END TOP BAR-->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!--  DATOS DEL PACIENTE -->
+                <div class= "card shadow mb-4">
+                    <div class= "card-body">
+                        <table class ="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Rut</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha Nac.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" th:text="${usuario.id_usuario}"></th>
+                                    <td th:text="${usuario.rut}"></td>
+                                    <td th:text="${usuario.nombre}+' '+${usuario.apellido}"></td>
+                                    <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">...
+                    <!-- Content Row -->
+                    <div class="row">
+
+
+                        <!-- INGRESO DE EXAMEN -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 text-center">
+                                <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i> Examen</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <form th:action="@{/examen/create(id_filiacion = ${examen.filiacion.id_filiacion})}" th:object="${examen}" method="post">
+                                    <!-- ALERTA DE ERRORES-->
+                                    <div th:if="${#fields.hasErrors('*')}">
+                                        <h2> Por favor corrija los siguientes errores:</h2>
+                                        <ul>
+                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                        </ul>
+                                    </div>
+
+                                    <!--ID EXAMEN-->
+                                    <input type="hidden" th:field="*{id_examen}">
+
+                                    <div class="d-flex justify-content-center">
+                                        <!--CREATININA-->
+                                        <div class="input-group col-md-8">
+                                            <input placeholder="Creatinina" class="form-control" type="text" th:field="*{creatinina}"  id="creatinina" name="creatinina"  required="required"/>
+                                            <span class="input-group-text">mg/dL</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"> <br> </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <!--CLRORO-->
+                                        <div class="input-group col-md-8">
+                                            <input placeholder="Cloro" type="text" class="form-control" th:field="*{cloro}"  id="cloro" name="cloro"  required="required" />
+                                            <span class="input-group-text">mEq/L</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"> <br> </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <!--ALBUMINA-->
+                                        <div class="input-group col-md-8">
+                                            <input placeholder="Albumina" class="form-control" type="text" th:field="*{albumina}"  id="albumina" name="albumina"  required="required"/>
+                                            <span class="input-group-text">g/L</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"> <br> </div>
+
+
+                                    <div class="d-flex justify-content-center">
+                                        <!--POTASIO-->
+                                        <div class="input-group col-md-8">
+                                            <input placeholder="Potasio" class="form-control" type="text" th:field="*{potasio}"  id="potasio" name="potasio"  required="required" />
+                                            <span class="input-group-text">mmol/L</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"> <br> </div>
+
+
+                                    <div class="d-flex justify-content-center">
+                                        <!--SODIO-->
+                                        <div class="input-group col-md-8">
+                                            <input placeholder="Sodio" class="form-control" type="text" th:field="*{sodio}"  id="sodio" name="sodio"  required="required" />
+                                            <span class="input-group-text">mEq/L</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"> <br> </div>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-secondary" href="javascript: history.go(-1)">Cancelar</a>
+                                        <button class="btn btn-primary" type="submit">Ingresar</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
+        <!-- End of Main Content -->
 
-        <!--INICIO DE FORMULARIO EXAMEN-->
-        <fieldset>
-            <legend>Datos del paciente</legend>
-            <table>
-                <input type="hidden" th:field="*{id_examen}">
-                <tr>
-                    <td><label>Creatinina: </label></td>
-                    <td><input type="text" th:field="*{creatinina}"  id="creatinina" name="creatinina"  required="required" /></td>
-                </tr>
-                <tr>
-                    <td><label>Cloro: </label></td>
-                    <td><input type="text" th:field="*{cloro}"  id="cloro" name="cloro"  required="required" /></td>
-                </tr>
-                <tr>
-                    <td><label>Albuminia: </label></td>
-                    <td><input type="text" th:field="*{albuminia}"  id="albuminia" name="albuminia"  required="required" /></td>
-                </tr>
+        <!-- FOOTER -->
+        <footer th:insert="fragments/imports :: footer"></footer>
+        <!-- End FOOTER -->
+    </div>
+    <!-- End of Content Wrapper -->
 
-                <tr>
-                    <td><label>Potasio: </label></td>
-                    <td><input type="text" th:field="*{potasio}"  id="potasio" name="potasio"  required="required" /></td>
-                </tr>
-                <tr>
-                    <td><label>Sodio: </label></td>
-                    <td><input type="text" th:field="*{sodio}"  id="sodio" name="sodio"  required="required" /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="submit">Registrar...</button>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-    </form>
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<div th:insert ="fragments/functions :: logout"></div>
+<div th:insert = "fragments/imports :: scripts"></div>
+
+
 </body>
+
 </html>

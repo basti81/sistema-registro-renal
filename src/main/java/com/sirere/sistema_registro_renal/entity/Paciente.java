@@ -1,11 +1,13 @@
 package com.sirere.sistema_registro_renal.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -34,26 +36,18 @@ public class Paciente{
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    @NotNull
+    @Column(name= "habilitado")
+    private boolean habilitado;
+
+    @OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Consulta> consultas;
 
 
     public Paciente() {
     }
 
-    public Paciente(String region, String comuna, String direccion, String prevision) {
-        this.region = region;
-        this.comuna = comuna;
-        this.direccion = direccion;
-        this.prevision = prevision;
-    }
 
-
-//    public Filiacion getFiliacion() {
-//        return filiacion;
-//    }
-//
-//    public void setFiliacion(Filiacion filiacion) {
-//        this.filiacion = filiacion;
-//    }
 
     public Long getId_paciente() {
         return id_paciente;
@@ -120,13 +114,29 @@ public class Paciente{
         this.filiacion = filiacion;
     }
 
+    public void setId_paciente(Long id_paciente) {
+        this.id_paciente = id_paciente;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
     @Override
     public String toString() {
         return "Paciente{" +
-                "region='" + region + '\'' +
+                "id_paciente=" + id_paciente +
+                ", region='" + region + '\'' +
                 ", comuna='" + comuna + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", prevision='" + prevision + '\'' +
+                ", filiacion=" + filiacion +
+                ", usuario=" + usuario +
+                ", habilitado=" + habilitado +
                 '}';
     }
 }

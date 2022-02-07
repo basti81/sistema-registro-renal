@@ -1,16 +1,20 @@
 package com.sirere.sistema_registro_renal.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-
+@Entity
+@Table(name="contacto")
 public class Contacto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_contacto;
     private String telefono;
     private String telefono_aux;
     private String correo;
 
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     public Contacto() {
@@ -48,5 +52,17 @@ public class Contacto {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public void setId_contacto(Integer id_contacto) {
+        this.id_contacto = id_contacto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

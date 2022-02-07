@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +25,7 @@ public class ExamenService {
     }
 
     public List<Examen> myExams(Long id_filiacion) {
-        return examenRepository.findByfiliacion(id_filiacion);
+        return examenRepository.findExamnByFiliacion(id_filiacion);
     }
 
     public Optional<Examen> getOne(Long id) {
@@ -31,8 +33,6 @@ public class ExamenService {
     }
 
     public void save(Examen examen) {
-        examen.setFecha_examen(frt.today());
-        examen.setVisto(false);
         examenRepository.save(examen);
     }
 

@@ -50,14 +50,6 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-<!--                    <h1 class="h3 mb-0 text-gray-800">Pagina de ejemplo</h1>-->
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                </div>
-
-
                 <!--  ROW CART-->
                 <!-- <div th:insert = "fragments-funcion :: row-cart"></div>-->
                 <!--END ROW CART-->
@@ -68,94 +60,146 @@
                         <h6 class="m-0 font-weight-bold text-primary">Registro Paciente</h6>
                     </div>
                     <div class= "card-body">
-                        <form class="row g-3 needs-validation" novalidate  th:action="@{/paciente/create}" th:object="${usuario}" method="post">
+                        <form class="row g-3"   th:action="@{/paciente/create}" th:object="${usuario}" method="post">
+
+                            <!-- ALERTA DE ERRORES-->
+                            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+                                 Por favor corrija los siguientes errores:
+                                <ul>
+                                    <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                            <div class='alert alert-success' th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
+
+                            <input type="hidden" th:field="*{id_usuario}">
+                            <input type="hidden" th:field="*{contacto.id_contacto}">
+                            <input type="hidden" th:field="*{paciente.id_paciente}">
+                            <input type="hidden" th:field="*{paciente.filiacion.id_filiacion}">
+                            <input type="hidden" th:value="2" th:field="*{roles}">
+                            <input type="hidden" th:field="*{password}">
+                            <div class="col-12"><br><label class="text-dark" >Datos Personales</label><br></div>
                             <!--RUT-->
-                            <div class="col-md-4">
-                                <label  class="form-label">Rut</label>
-                                <input type="text" class="form-control"
-                                       th:field="*{rut}"  id="rut" name="rut"   oninput="checkRut(this)" required="required">
+                            <div class="col-12">
+                                <input type="text" class="form-control col-md-2"
+                                       th:field="*{rut}"  id="rut" name="rut" placeholder="Rut"  oninput="checkRut(this)"   required="required">
                                 <script th:src="@{/js/validarRUT.js}"></script>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
+                                <br>
                             </div>
 
                             <!--NOMBRE-->
-                            <div class="col-md-4">
-                                <label  class="form-label">Nombre</label>
-                                <input type="text" class="form-control"
-                                       th:field="*{nombre}"  id="nombre" name="nombre"   required="required">
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
+                            <div class="col-md-3">
+                                <input type="text" class=" form-control"
+                                       th:field="*{nombre}"  id="nombre" placeholder="Nombre"  required="required">
                             </div>
 
                             <!--APELLIDO-->
                             <div class="col-md-4">
-                                <label  class="form-label">Apellido</label>
-                                <input type="text" class="form-control"   required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                <input type="text" class="form-control"
+                                       th:field="*{apellido}"  placeholder="Apellido" id="apellido" name="apellido" required="required">
+
+
                             </div>
 
+                            <div class="col-12">  <br> </div>
                             <!--REGION-->
-                            <div class="col-md-4">
-                                <label  class="form-label">Region</label>
+                            <div class="col-md-3">
                                 <input type="text" class="form-control"
-                                       th:field="*{paciente.region}"  id="region" name="region"   required="required">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                       th:field="*{paciente.region}" placeholder="Region"  id="region" name="region"   required="required">
                             </div>
 
                             <!--COMUNA-->
-                            <div class="col-md-4">
-                                <label  class="form-label">Comuna</label>
+                            <div class="col-md-3">
                                 <input type="text" class="form-control"
-                                       th:field="*{paciente.comuna}"  id="comuna" name="comuna"   required="required">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                       th:field="*{paciente.comuna}" placeholder="Comuna" id="comuna" name="comuna"   required="required">
                             </div>
 
                             <!--DIRECCION-->
-                            <div class="col-md-6">
-                                <label  class="form-label">Direccion</label>
+                            <div class="col-md-4">
                                 <input type="text" class="form-control"
-                                       th:field="*{paciente.direccion}"  id="direccion" name="direccion"   required="required">
-                                <div class="invalid-feedback">
-                                    Please provide a valid city.
-                                </div>
+                                       th:field="*{paciente.direccion}" placeholder="Direccion" id="direccion" name="direccion"   required="required">
                             </div>
 
+                            <div class="col-12"><br><label class="text-dark" >Datos Importantes</label><br></div>
                             <!-- PREVISION -->
-                            <select class="form-select" th:field="*{paciente.prevision}" id="prevision" name="prevision" required="required">
-                                <option selected>Prevision</option>
-                                <option th:value="'fo'" th:text="Fonasa"></option>
-                                <option th:value="'is'" th:text="Isapre"></option>
-                            </select>
+                            <div class="col-md-3">
+                                <select class="selectpicker show-tick form-control"  th:field="*{paciente.prevision}" id="prevision" name="prevision" required="required">
+                                    <option value="" selected>Prevision</option>
+                                    <option th:value="'fo'" th:text="Fonasa"></option>
+                                    <option th:value="'is'" th:text="Isapre"></option>
+                                </select>
+
+                            </div>
+
 
                             <!-- SEXO -->
-                            <select class="form-select" th:field="*{paciente.filiacion.sexo}" id="sexo" name="sexo" required="required">
-                                <option selected>Sexo</option>
-                                <option th:value="'M'" th:text="Masculino"></option>
-                                <option th:value="'F'" th:text="Femenino"></option>
-                            </select>
+                            <div class="col-md-3">
+
+                                <select class="selectpicker show-tick form-control" th:field="*{paciente.filiacion.sexo}" id="sexo" name="sexo" required="required">
+                                    <option value="" selected>Sexo</option>
+                                    <option th:value="'M'" th:text="Masculino"></option>
+                                    <option th:value="'F'" th:text="Femenino"></option>
+                                </select>
+
+                            </div>
+
 
                             <!-- RAZA -->
-                            <select class="form-select"  th:field="*{paciente.filiacion.raza}" id="raza" name="raza" required="required">
-                                <option selected>Sexo</option>
-                                <option th:value="'ng'" th:text="AfroAmericano"></option>
-                                <option th:value="'bl'" th:text="Caucasico"></option>
-                            </select>
+                            <div class="col-md-3">
+                                <select class="selectpicker show-tick form-control"  th:field="*{paciente.filiacion.raza}" id="raza" name="raza" required="required">
+                                    <option value="" selected>Raza</option>
+                                    <option th:value="'ng'" th:text="AfroAmericano"></option>
+                                    <option th:value="'bl'" th:text="Caucasico"></option>
+                                </select>
+                            </div>
 
-                            <label>Fecha Nacimiento</label>
-                            <input type="date" th:field="*{paciente.filiacion.fecha_nac}" id="fecha_nac" required = "true">
 
+                            <!--FECHA NACIMIENTO-->
+                            <div class="col-md-3">
+                                <input class = "form-control" title="Fecha Nacimiento" type="date" th:field="*{paciente.filiacion.fecha_nac}" id="fecha_nac" required = "required">
+                            </div>
+
+                            <div class="col-12"><br><label class="text-dark" >Contacto</label><br></div>
+
+                            <!--CORREO-->
+                            <div class="input-group col-md-4">
+                                <span class="input-group-text" >@</span>
+                                <input type="email" th:field="*{contacto.correo}" id="correo" name="correo" placeholder="Correo" class="form-control" required="required">
+                            </div>
+
+
+                            <!--TELEFONO-->
+                            <div class="col-md-2">
+                                <input type="text" class="form-control"
+                                       th:field="*{contacto.telefono}"  id="telefono" name="telefono"  placeholder="Celular" required="required">
+                            </div>
+
+                            <!--TELEFONO AUX-->
+                            <div class="col-md-2">
+
+                                <input type="text" class="form-control"
+                                       th:field="*{contacto.telefono_aux}" placeholder="Celular Resplado" id="telefono_aux" name="telefono_aux">
+                            </div>
+
+                            <div class="col-12"><br></div>
+
+
+
+                            <!--ACTIVO-->
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                                           th:field="*{personal.habilitado}">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        ¿Activar Cuenta?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12"><br></div>
                             <div class="col-12">
                                 <button class="btn btn-primary" type="submit">Ingresar</button>
                             </div>
+
+
                         </form>
 
                     </div>
@@ -203,6 +247,7 @@
 <!--</div>-->
 
 <div th:insert = "fragments/imports :: scripts"></div>
+
 
 </body>
 

@@ -1,6 +1,6 @@
 package com.sirere.sistema_registro_renal.biblioteca;
 
-import com.sirere.sistema_registro_renal.enums.EnumEspecialidad;
+import com.sirere.sistema_registro_renal.enums.EspecilidadEnum;
 import com.sirere.sistema_registro_renal.enums.EnumPrevision;
 import com.sirere.sistema_registro_renal.enums.EnumRol;
 
@@ -41,8 +41,8 @@ public class ComboBoxes {
     public List especialidad() {
         List<String> lista = new ArrayList<>();
         lista.clear();
-        lista.add(EnumEspecialidad.NINGUNA.name());
-        lista.add(EnumEspecialidad.NEFROLOGIA.name());
+//        lista.add(EspecilidadNombre.NINGUNA.name());
+        lista.add(EspecilidadEnum.NEFROLOGIA.name());
         return lista;
     }
 

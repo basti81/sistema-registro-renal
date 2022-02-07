@@ -27,6 +27,7 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -44,7 +45,7 @@
         <div id="content">
 
             <!-- TOP BAR -->
-            <div th:insert="fragments/functions :: topbar"></div>
+            <div th:insert="fragments/topbar :: topbar"></div>
             <!-- END TOP BAR-->
 
             <!-- Begin Page Content -->
@@ -52,9 +53,9 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Lista Paciente</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    <h1 class="h5 mb-0 text-gray-800">Lista Paciente</h1>
+<!--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i-->
+<!--                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
                 </div>
 
 
@@ -67,18 +68,19 @@
                 <div class= "card shadow mb-4">
                     <div class="card-header py-3">
 <!--                        <h6 class="m-0 font-weight-bold text-primary">Pacientes</h6>-->
-                        <a class="btn btn-primary" th:href="@{/paciente/nuevo}"> Nuevo </a>
+                        <a class="btn btn-primary btn-sm" th:href="@{/paciente/nuevo}"> Nuevo </a>
+
                     </div>
                     <div class= "card-body">
 
                         <div class='alert alert-success' th:if="${msg != null}"  th:text="${msg}" role='alert'></div>
-                        <table class="table table-hover">
+                        <table class="table table-hover table-sm">
                             <thead>
                             <tr>
-                                <th>Id Usuario</th>
+                                <th>#</th>
                                 <th>Rut</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
+                                <th>Fec. Nacimiento</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
@@ -86,14 +88,31 @@
                             <tr th:each="usuario : ${usuarios}">
                                 <td th:text="${usuario.id_usuario}"></td>
                                 <td th:text="${usuario.rut}"></td>
-                                <td th:text="${usuario.nombre}"></td>
-                                <td th:text="${usuario.apellido}"></td>
+                                <td th:text="${usuario.nombre} + ' ' +${usuario.apellido}"></td>
+                                <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
+
                                 <td>
-                                    <a th:href = "@{/usuario/detalle/{id_usuario}(id_usuario = ${usuario.id_usuario})}" onclick="return confirm('ver')"> Ver  </a>
-                                    <a th:href = "@{/usuario/actualizar/{id_usuario}(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm">
+
+                                    <!--SE ACTIVARA CON EL ROL ENFERMERIA-->
+                                    <a th:href = "@{/signo/lista(id_filiacion = ${usuario.paciente.filiacion.id_filiacion})}" class="btn btn-success btn-sm" title="Ir a lista signo, enfermeria">
+                                        <i class="fas fa-eye" aria-hidden="true"></i></a>
+
+                                    <!--SE ACTIVARA CON EL ROL LABORATORISTA-->
+                                    <a th:href = "@{/examen/lista(id_filiacion = ${usuario.paciente.filiacion.id_filiacion})}" class="btn btn-success btn-sm" title="Ir a examen lista, laboratorista">
+                                        <i class="fas fa-eye" aria-hidden="true"></i></a>
+
+                                    <!--SE ACTIVARA CON EL ROL GES-->
+                                    <a th:href = "@{/consulta/lista(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm" title="Ir a consulta lista,Ges">
+                                        <i class="fas fa-eye" aria-hidden="true"></i></a>
+
+                                    <!--SE ACTIVARA CON EL ROL DOCTOR-->
+                                    <a th:href = "@{/paciente/detalle(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm" title="Ver">
+                                        <i class="fas fa-eye" aria-hidden="true"></i></a>
+                                    <a th:href = "@{/paciente/actualizar(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm" title="Actualizar">
                                         <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
-                                    <a th:href = "@{/usuario/eliminar/{id_usuario}(id_usuario = ${usuario.id_usuario})}" class="btn btn-success btn-sm" title="Eliminar" onclick="return confirm('¿Está seguro de eliminar?')">
+                                    <a th:href = "@{/paciente/eliminar(id_usuario = ${usuario.id_usuario})}" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Está seguro de eliminar?')">
                                         <i class="fas fa-trash" aria-hidden="true"></i> </a>
+
                                 </td>
                             </tr>
                             </tbody>
@@ -121,26 +140,8 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<div th:insert ="fragments/functions :: logout"></div>
-<!--<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion?</h5>-->
-<!--                <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">×</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>-->
-<!--&lt;!&ndash;                <a class="btn btn-primary" th:href="@{/login}">Salir</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                <a class="btn btn-primary" href="login">Salir</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div th:insert ="fragments/topbar :: logout"></div>
+
 
 <div th:insert = "fragments/imports :: scripts"></div>
 

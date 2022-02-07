@@ -2,6 +2,7 @@ package com.sirere.sistema_registro_renal.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sirere.sistema_registro_renal.biblioteca.Formato;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "filiacion")
@@ -28,27 +30,28 @@ public class Filiacion {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_nac;
 
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
 
-    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Antropometria> antropometrias;
 //
-    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Examen> examenes;
 //
-    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "filiacion",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<SignoVital> signos;
 //
 //    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name="id_filiacion" ,referencedColumnName = "id_filiacion")
 //    private List<Diagnostico> diagnosticos;
 //
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name= "id_filiacion" , referencedColumnName = "id_filiacion")
-//    private List<Antecedente> antecedentes;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name ="fil_antecedente",joinColumns = @JoinColumn (name = "id_filiacion"),inverseJoinColumns =  @JoinColumn(name="id_antecendente"))
+    private Set<Antecedente> antecedentes ;
 
     private LocalDate fecha_filiacion;
 
@@ -105,9 +108,13 @@ public class Filiacion {
         this.examenes = examenes;
     }
 
+    //ANTECEDENTES
+    public Set<Antecedente> getAntecedentes() {return antecedentes;}
+    public void setAntecedentes(Set<Antecedente> antecedentes) {this.antecedentes = antecedentes;}
 
     public Integer getEdad() {
-        return edad;
+        Formato formato = new Formato();
+        return formato.today().getYear()- this.fecha_nac.getYear();
     }
 
     public void setEdad(Integer edad) {

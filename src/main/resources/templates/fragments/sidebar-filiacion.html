@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <div th:insert="frangments/imports :: links"></div>
+</head>
+<body>
+
+
+<div th:fragment = "sidebar-paciente">
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">SIRERE</div>
+  </a>
+
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <a href="javascript: history.go(-1)">Volver</a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link">
+      <i class="fas fa-home"></i>
+      <span>Home</span></a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link" th:href = "@{/paciente/detalle(id_usuario = ${usuario.id_usuario})}">
+      <i class="fas fa-table"></i>
+      <span>Mis Datos</span></a>
+  </li>
+
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link" th:href="@{/filiacion/historial(id_usuario=${usuario.id_usuario})}">
+      <i class="fas fa-book-medical"></i>
+      <span>Mi Historial</span></a>
+  </li>
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link">
+      <i class="far fa-clock"></i>
+    <span>Reservar Hora</span></a>
+  </li>
+
+</div>
+
+
+<div th:insert="fragments/imports :: scripts"></div>
+</body>
+</html>
