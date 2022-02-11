@@ -61,15 +61,18 @@
                   <h1 class="alert-heading" th:text="'Bienvenido!, '+${#authentication.getPrincipal().getNombre()}">Bienvenido!</h1>
 <!--                  <span th:value="${#authentication.getPrincipal().getRut()}"></span>-->
 <!--                      <span th:value="${#authentication.getPrincipal().getNombre()}"></span>-->
-                    <span sec:authentication="principal.authorities"></span>
+                    <h4 sec:authentication="principal.authorities"></h4>
 
                   <!-- 1.- INDEX ADMINISTRADOR-->
-                  <div class=" d-flex justify-content-end" sec:authorize="hasRole('ADMINISTRADOR')">
-                      <form th:action="@{/administrador/index}" method="get" >
-                          <input type="hidden" th:name="id_usuario" placeholder="Se dirige a administrador index" th:value="${#authentication.getPrincipal().getId_usuario()}" >
-                          <button class="btn-primary" type="submit">Comencemos</button>
-                      </form>
+                  <div class="row" sec:authorize="hasAuthority('ADMINISTRADOR')">
+                      <div class=" d-flex justify-content-end">
+                          <form th:action="@{/administrador/index}" method="get" >
+                              <input type="hidden" th:name="id_usuario" placeholder="Se dirige a administrador index" th:value="${#authentication.getPrincipal().getId_usuario()}" >
+                              <button class="btn-primary" type="submit">Comencemos</button>
+                          </form>
+                      </div>
                   </div>
+
 
                   <!-- 2.- INDEX PACIENTE-->
                   <div class=" d-flex justify-content-end" sec:authorize="hasRole('CLIENTE')">

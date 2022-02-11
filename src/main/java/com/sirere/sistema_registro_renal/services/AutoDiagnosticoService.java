@@ -17,8 +17,8 @@ public class AutoDiagnosticoService {
 
     @Autowired
     private AutoDiagnosticoRepository autoDiagnosticoRepository;
-//
-//    public List<AutoDiagnostico> list(){
-//        return autoDiagnosticoRepository.findAllAutoDiagnostico();
-//    }
+
+    public List<AutoDiagnostico> list(){
+        return autoDiagnosticoRepository.findAllAutoDiagnostico();
+    }
 }

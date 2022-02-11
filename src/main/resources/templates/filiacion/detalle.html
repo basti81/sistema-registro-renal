@@ -45,16 +45,9 @@
                     </div>
 
 
-                    <!--  ROW CART-->
-                    <!-- <div th:insert = "fragments-funcion :: row-cart"></div>-->
-                    <!--END ROW CART-->
-
 
                     <!--  DATOS DEL PACIENTE -->
                     <div class= "card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Datos Paciente</h6>
-                        </div>
                         <div class= "card-body">
                             <table class ="table">
                                 <thead>
@@ -79,92 +72,203 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
 
-                        <!--DIRECCIONES-->
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Direcciones</h6>
+                    <!-- DATOS CONTACTO && FILIACION-->
+                    <div class="d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card shadow mb-4">
+
+                                <!--TITULO-->
+                                <div class="card-header py-3 text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-user-md"></i> Contacto</h6>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body">
+                                    <table class ="table table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th style="display:none;" scope="col">#</th>
+                                            <th scope="col">Email.</th>
+                                            <th scope="col">Teléfono.</th>
+                                            <th scope="col">Teléfono(opc).</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th style="display:none;" id="id_contacto">0</th>
+                                            <td th:text="${usuario.contacto.correo}">example@gmail.com</td>
+                                            <td th:text="${usuario.contacto.telefono}"></td>
+                                            <td th:text="${usuario.contacto.telefono_aux}" >telefono(opc)</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
                         </div>
+
+                        <!-- FILIACION -->
+                        <div class="col-md-4" >
+                            <div class="card shadow mb-4">
+
+                                <div class="card-header py-3 text-center">
+                                    <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-user-md"></i> Filiacion</h6>
+                                </div>
+
+
+                                <div class= "card-body">
+                                    <table class ="table table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th style="display:none;" scope="col">#</th>
+                                            <th scope="col">Sexo.</th>
+                                            <th scope="col">Etnia.</th>
+                                            <th scope="col">Edad.</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th style="display:none;" th:value="${usuario.paciente.filiacion.id_filiacion}">0</th>
+                                            <td>
+                                                <span  th:if="${usuario.paciente.filiacion.sexo == 'M'}">Masculino</span>
+                                                <span  th:if="${usuario.paciente.filiacion.sexo == 'F'}">Femenino</span>
+                                            </td>
+                                            <td>
+                                                <span th:if="${usuario.paciente.filiacion.raza} == 'bl'">Caucasica</span>
+                                                <span th:if="${usuario.paciente.filiacion.raza} == 'ng'">AfroAmericana</span>
+                                            </td>
+                                            <td  th:value="${usuario.paciente.filiacion.fecha_nac}" id="fecha_nac"><span id="txt_edad"></span>23</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!--  DIRECCION -->
+                    <div class= "card shadow mb-4">
                         <div class= "card-body">
-                            <table class ="table">
+                            <table class ="table table-sm">
                                 <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Region</th>
-                                    <th scope="col">Comuna</th>
-                                    <th scope="col">Direccion</th>
-
+                                    <th scope="col">Región.</th>
+                                    <th scope="col">Comuna.</th>
+                                    <th scope="col">Dirección.</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <th scope="row"></th>
-                                    <td th:text="${usuario.paciente.region}"></td>
-                                    <td th:text="${usuario.paciente.comuna}"></td>
-                                    <td th:text="${usuario.paciente.direccion}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!--CONTACTO-->
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Contacto</h6>
-                        </div>
-                        <div class= "card-body">
-                            <table class ="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Celular</th>
-                                    <th scope="col">Cel Resplado</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td th:text="${usuario.contacto.correo}"></td>
-                                    <td th:text="${usuario.contacto.telefono}"></td>
-                                    <td th:text="${usuario.contacto.telefono_aux}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!--FILIACION-->
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Filiacion</h6>
-                        </div>
-                        <div class= "card-body">
-                            <table class ="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Fecha Nac.</th>
-                                    <th scope="col">Sexo</th>
-                                    <th scope="col">Raza</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>
-                                    <td>
-                                        <span th:if="${usuario.paciente.filiacion.sexo == 'M'}">Masculino</span>
-                                        <span th:unless="${usuario.paciente.filiacion.sexo == 'M'}">Femenino</span>
-                                    </td>
-                                    <td>
-                                        <span th:if="${usuario.paciente.filiacion.raza == 'bl'}">Caucasica</span>
-                                        <span th:unless="${usuario.paciente.filiacion.raza == 'bl'}">AfroAmericana</span>
-                                    </td>
+                                    <th th:text="${usuario.paciente.region}">Valparaiso</th>
+                                    <td th:text="${usuario.paciente.comuna}">Valparaiso</td>
+                                    <td th:text="${usuario.paciente.direccion}">San felipe</td>
                                 </tr>
                                 </tbody>
                             </table>
 
                         </div>
                     </div>
+
+
+
+<!--                    &lt;!&ndash;DIRECCIONES&ndash;&gt;-->
+<!--                    <div class= "card shadow mb-4">-->
+
+<!--                        <div class="card-header py-3">-->
+<!--                            <h6 class="m-0 font-weight-bold text-primary">Direcciones</h6>-->
+<!--                        </div>-->
+<!--                        <div class= "card-body">-->
+<!--                            <table class ="table">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th scope="col">#</th>-->
+<!--                                    <th scope="col">Region</th>-->
+<!--                                    <th scope="col">Comuna</th>-->
+<!--                                    <th scope="col">Direccion</th>-->
+
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row"></th>-->
+<!--                                    <td th:text="${usuario.paciente.region}"></td>-->
+<!--                                    <td th:text="${usuario.paciente.comuna}"></td>-->
+<!--                                    <td th:text="${usuario.paciente.direccion}"></td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash;CONTACTO&ndash;&gt;-->
+<!--                        <div class="card-header py-3">-->
+<!--                            <h6 class="m-0 font-weight-bold text-primary">Contacto</h6>-->
+<!--                        </div>-->
+<!--                        <div class= "card-body">-->
+<!--                            <table class ="table">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th scope="col">#</th>-->
+<!--                                    <th scope="col">Correo</th>-->
+<!--                                    <th scope="col">Celular</th>-->
+<!--                                    <th scope="col">Cel Resplado</th>-->
+
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row"></th>-->
+<!--                                    <td th:text="${usuario.contacto.correo}"></td>-->
+<!--                                    <td th:text="${usuario.contacto.telefono}"></td>-->
+<!--                                    <td th:text="${usuario.contacto.telefono_aux}"></td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash;FILIACION&ndash;&gt;-->
+<!--                        <div class="card-header py-3">-->
+<!--                            <h6 class="m-0 font-weight-bold text-primary">Filiacion</h6>-->
+<!--                        </div>-->
+<!--                        <div class= "card-body">-->
+<!--                            <table class ="table">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th scope="col">#</th>-->
+<!--                                    <th scope="col">Fecha Nac.</th>-->
+<!--                                    <th scope="col">Sexo</th>-->
+<!--                                    <th scope="col">Raza</th>-->
+
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <th scope="row"></th>-->
+<!--                                    <td th:text="${usuario.paciente.filiacion.fecha_nac}"></td>-->
+<!--                                    <td>-->
+<!--                                        <span th:if="${usuario.paciente.filiacion.sexo == 'M'}">Masculino</span>-->
+<!--                                        <span th:unless="${usuario.paciente.filiacion.sexo == 'M'}">Femenino</span>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span th:if="${usuario.paciente.filiacion.raza == 'bl'}">Caucasica</span>-->
+<!--                                        <span th:unless="${usuario.paciente.filiacion.raza == 'bl'}">AfroAmericana</span>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
                 <!-- /.container-fluid -->

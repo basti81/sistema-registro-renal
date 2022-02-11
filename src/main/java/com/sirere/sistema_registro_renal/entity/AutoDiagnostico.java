@@ -10,7 +10,7 @@ public class AutoDiagnostico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_autoDiagnostico;
     private Integer estado;
-    @Column(length = 300)
+    @Column(columnDefinition="TEXT")
     private String descripcion;
     private LocalDate fecha;
     private Boolean visto;
@@ -68,5 +68,16 @@ public class AutoDiagnostico {
 
     public void setExamen(Examen examen) {
         this.examen = examen;
+    }
+
+    @Override
+    public String toString() {
+        return "AutoDiagnostico{" +
+                "id_autoDiagnostico=" + id_autoDiagnostico +
+                ", estado=" + estado +
+                ", descripcion='" + descripcion + '\'' +
+                ", fecha=" + fecha +
+                ", visto=" + visto +
+                '}';
     }
 }

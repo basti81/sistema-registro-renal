@@ -16,6 +16,7 @@
      $("#txt_name_doctor").val(nombre);
  });
 
+
   function today(){
         to_examen_list.max = new Date().toISOString().split("T")[0];
         from_examen_list.max = new Date().toISOString().split("T")[0];

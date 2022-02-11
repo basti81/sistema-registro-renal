@@ -56,38 +56,37 @@
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
           <div class="card border-0">
-            <h4 class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getNombre()}">Douglas McGee</h4>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getNombre()}">Douglas McGee</span>
 <!--            <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="principal.authorities">Admin</span>-->
           </div>
 
-<!--          <div sec:authorize="hasRole('ADMINISTRADOR')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/ADMIN.png}">-->
-<!--          </div>-->
-<!--          <div sec:authorize="hasRole('CLIENTE')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/PACIENTE.png}">-->
-<!--          </div>-->
-          <div sec:authorize="hasRole('DOCTOR')">
+
+          <div  sec:authorize="hasAuthority('ADMINISTRADOR')">
+            <img class="img-profile rounded-circle" th:src="@{/img/ADMIN.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('CLIENTE')">
+            <img class="img-profile rounded-circle" th:src="@{/img/PACIENTE.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('DOCTOR')">
             <img class="img-profile rounded-circle" th:src="@{/img/DOCTOR.png}">
           </div>
-<!--          <div sec:authorize="hasRole('ENFERMERIA')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/ENFERMERIA.png}">-->
-<!--          </div>-->
-<!--          <div sec:authorize="hasRole('GES')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/GES.png}">-->
-<!--          </div>-->
-<!--          <div sec:authorize="hasRole('LABORATORISTA')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/LABORATORISTA.png}">-->
-<!--          </div>-->
-<!--          <div sec:authorize="hasRole('ESTADISTICAS')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/ESTADISTICA.png}">-->
-<!--          </div>-->
-<!--          <div sec:authorize="hasRole('TENS')">-->
-<!--            <img class="img-profile rounded-circle" th:src="@{/img/TENS.png}">-->
-<!--          </div>-->
+          <div  sec:authorize="hasAuthority('ENFERMERIA')">
+            <img class="img-profile rounded-circle" th:src="@{/img/ENFERMERIA.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('GES')">
+            <img class="img-profile rounded-circle" th:src="@{/img/GES.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('LABORATORISTA')">
+            <img class="img-profile rounded-circle" th:src="@{/img/LABORATORISTA.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('ESTADISTICAS')">
+            <img class="img-profile rounded-circle" th:src="@{/img/ESTADISTICA.png}">
+          </div>
+          <div  sec:authorize="hasAuthority('TENS')">
+            <img class="img-profile rounded-circle" th:src="@{/img/TENS.png}">
+          </div>
 
 
-<!--          <img class="img-profile rounded-circle"-->
-<!--               th:src="@{/img/undraw_profile.svg}">-->
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

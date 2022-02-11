@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface AutoDiagnosticoRepository extends JpaRepository<AutoDiagnostico, Long> {
-//    //LISTA AUTODIAGNOSTICO
-//    @Query(value = " SELECT ad FROM auto_diagnostico ad ")
-//    public List<AutoDiagnostico> findAllAutoDiagnostico();
+    //LISTA AUTODIAGNOSTICO
+    @Query(value = " SELECT * FROM auto_diagnostico ad WHERE ad.visto = 0 ORDER BY ad.estado DESC", nativeQuery = true)
+    public List<AutoDiagnostico> findAllAutoDiagnostico();
+
 }
